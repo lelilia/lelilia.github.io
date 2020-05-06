@@ -43,20 +43,23 @@
 }
 [data-value = "128"] {
     background-color: #d10fa7;
+    font-size: 4rem;
 }
 [data-value = "256"] {
     background-color: #d64f9e;
+    font-size: 4rem;
 }
 [data-value = "512"] {
     background-color: #e62263;
+    font-size: 4rem;
 }
 [data-value = "1024"] {
     background-color: #e62294;
-    font-size: 2rem;
+    font-size: 4rem;
 }
 [data-value = "2048"] {
     background-color: #eb0753;
-    font-size: 2rem;
+    font-size: 4rem;
 }
 
 @keyframes pop {
