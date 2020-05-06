@@ -55,11 +55,11 @@
 }
 [data-value = "1024"] {
     background-color: #e62294;
-    font-size: 4rem;
+    font-size: 3.5rem;
 }
 [data-value = "2048"] {
     background-color: #eb0753;
-    font-size: 4rem;
+    font-size: 3.5rem;
 }
 
 @keyframes pop {
