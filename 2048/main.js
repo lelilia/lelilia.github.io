@@ -234,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // handle Key Input
   document.addEventListener("keydown", (key) => {
     key.preventDefault()
-    game.squares.style.backgroundColor = "red"
+    elements.squares.style.backgroundColor = "red"
     if (key.key === "ArrowRight") {
       game.move("right")
     }
@@ -253,7 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener("touchstart", (touch) => {
     touch.preventDefault()
-    game.squares.style.backgroundColor = "red"
+    elements.squares.style.backgroundColor = "red"
   }) 
 
 })
