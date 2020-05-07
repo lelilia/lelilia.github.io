@@ -252,7 +252,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener("touchstart", (touch) => {
     touch.preventDefault()
-    game.move("right")
+    alert("touch")
   })
 
 })
