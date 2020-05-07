@@ -74,10 +74,7 @@ Game.prototype.isGameLost = function isGameLost() {
   for (let row = 0; row < NUMBER_OF_SQUARES; row++) {
     for (let col = 0; col < NUMBER_OF_SQUARES - 1; col++) {
       const index = row * NUMBER_OF_SQUARES + col
-      console.log("index:", index)
-      console.log("row:", row, "col:" , col)
       if (arrayOfValues[index] === arrayOfValues[index+1] || arrayOfValues[index] === arrayOfValues[index + NUMBER_OF_SQUARES]){
-        console.log(index, arrayOfValues[index])
         return false
       }
     }
@@ -250,6 +247,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // handle swipes 
 
+  document.addEventListener("touchstart", (touch) => {
+    touch.preventDefault()
+    elements.squares[0].style.backgroundColor = "red"
+  })
+  document.addEventListener("touchmove", (touch) => {
+    touch.preventDefault()
+    elements.squares[1].style.backgroundColor = "green"
+  })
+
+  document.addEventListener("touchend", (touch) => {
+    touch.preventDefault()
+    elements.squares[2].style.backgroundColor = "blue"
+  })
+/*
   let startX
   let startY
   let distX
@@ -298,7 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     }
-  })
+  })*/
 
 })
 
