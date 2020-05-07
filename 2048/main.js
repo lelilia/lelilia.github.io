@@ -280,9 +280,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (timeTaken < maxTime && (Math.abs(distX) > minDistance || Math.abs(distY) > minDistance)) {
       if (Math.abs(distX) > Math.abs(distY)) {
         if (distX > 0) {
+          elements.squares[0].style.backgroundColor = "red"
           game.move("right")
         }
         else {
+          elements.squares[0].style.backgroundColor = "green"
           game.move("left")
         }
       }
