@@ -230,6 +230,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   game.newGame()
+
+  // handle Key Input
   document.addEventListener("keydown", (key) => {
     key.preventDefault()
     if (key.key === "ArrowRight") {
@@ -246,4 +248,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
+  // handle swipes 
+
+  document.addEventListener("touchstart", (touch) => {
+    touch.preventDefault()
+    game.move("right")
+  })
+
 })
+
