@@ -277,6 +277,7 @@ document.addEventListener("DOMContentLoaded", () => {
     distX = touchEvent.changedTouches[0].pageX - startX
     distY = touchEvent.changedTouches[0].pageY - startY
     timeTaken = new Date().getTime() - startTime
+    elements.squares[0].style.backgroundColor = "blue"
     if (timeTaken < maxTime && (Math.abs(distX) > minDistance || Math.abs(distY) > minDistance)) {
       if (Math.abs(distX) > Math.abs(distY)) {
         if (distX > 0) {
