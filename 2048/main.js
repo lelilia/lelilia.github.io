@@ -234,7 +234,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // handle Key Input
   document.addEventListener("keydown", (key) => {
     key.preventDefault()
-    elements.squares[0].style.backgroundColor = "red"
     if (key.key === "ArrowRight") {
       game.move("right")
     }
@@ -251,10 +250,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // handle swipes 
 
-  document.addEventListener("touchstart", (touch) => {
-    touch.preventDefault()
-    elements.squares[0].style.backgroundColor = "red"
-  }) 
+  let startX
+  let startY
+  let distX
+  let distY 
+  const minDistance = 150
+  const maxTime = 200
+  let startTime
+  let timeTaken 
+
+  document.addEventListener("touchstart", (touchEvent) => {
+    touchEvent.preventDefault()
+    elements.squares.style.backgroundColor = "red"
+    dist = 0
+    startX = touchEvent.changedTouches[0].pageX
+    startY = touchEvent.changedTouches[0].pageY
+    startTime = new Date().getTime()
+  })
+
+  document.addEventListener("touchmove", (touchEvent) => {
+    touchEvent.preventDefault()
+  })
+
+  document.addEventListener("touchend", (touchEvent) => {
+    touchEvent.preventDefault()
+    distX = touchEvent.changedTouches[0].pageX - startX
+    distY = touchEvent.changedTouches[0].pageY - startY
+    timeTaken = new Date().getTime() - startTime
+    if (timeTaken < maxTime && (Math.abs(distX) > minDistance || Math.abs(distY) > minDistance)) {
+      if (Math.abs(distX) > Math.abs(distY)) {
+        if (distX > 0) {
+          game.move("right")
+        }
+        else {
+          game.move("left")
+        }
+      }
+      else {
+        if (distY > 0) {
+          game.move("down")
+        }
+        else {
+          game.move("up")
+        }
+      }
+    }
+  })
 
 })
 
