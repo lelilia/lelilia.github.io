@@ -231,6 +231,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // handle Key Input
   document.addEventListener("keydown", (key) => {
     key.preventDefault()
+    
+    elements.squares[4].style.backgroundColor = "yellow"
     if (key.key === "ArrowRight") {
       game.move("right")
     }
