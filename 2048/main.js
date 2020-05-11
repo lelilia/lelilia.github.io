@@ -180,6 +180,9 @@ Game.prototype.move = function move(direction) {
     this.fillRandomEmptySquare()
   }
   this.emit("draw")
+  if (this.isGameLost()){
+    this.emit("lost")
+  }
 }
 // ------------------------------------------------------------------------------------
 // ------------------------ Index File ------------------------------------------------
@@ -188,7 +191,8 @@ Game.prototype.move = function move(direction) {
 document.addEventListener("DOMContentLoaded", () => {
   const game = new Game()
   const elements = {
-    squares: document.querySelectorAll(".board-square")
+    squares: document.querySelectorAll(".board-square"),
+    gameContainer: document.querySelector(".game-container")
   }
 
   game.on("draw", () => {
@@ -202,11 +206,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       elements.squares[index].setAttribute("data-value", game.squares[index].val)
     }
-    const gameLost = game.isGameLost()
-    if (gameLost) {
-      alert("You have lost")
-      game.newGame()
-    }
+  })
+
+  game.on("lost", () => {
+    alert("You have lost")
+    game.newGame()
   })
 
   game.on("merged", ([row, col]) => {
@@ -231,8 +235,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // handle Key Input
   document.addEventListener("keydown", (key) => {
     key.preventDefault()
-    
-    elements.squares[4].style.backgroundColor = "yellow"
     if (key.key === "ArrowRight") {
       game.move("right")
     }
@@ -247,63 +249,49 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   })
 
+
+  
+
+
   // handle swipes 
 
-  document.addEventListener("touchstart", (touch) => {
-    touch.preventDefault()
-    elements.squares[0].style.backgroundColor = "red"
-  })
-  document.addEventListener("touchmove", (touch) => {
-    touch.preventDefault()
-    elements.squares[1].style.backgroundColor = "green"
-  })
-
-  document.addEventListener("touchend", (touch) => {
-    touch.preventDefault()
-    elements.squares[2].style.backgroundColor = "blue"
-  })
-/*
   let startX
   let startY
   let distX
-  let distY 
-  const minDistance = 150
-  const maxTime = 200
-  let startTime
-  let timeTaken 
+  let distY
+  let distance 
+  const minDistance = 15
 
-  document.addEventListener("touchstart", (touchEvent) => {
-    touchEvent.preventDefault()
-    elements.squares.style.backgroundColor = "red"
-    dist = 0
-    startX = touchEvent.changedTouches[0].pageX
-    startY = touchEvent.changedTouches[0].pageY
-    startTime = new Date().getTime()
+  elements.gameContainer.addEventListener("touchstart", (touch) => {
+    touch.preventDefault()
+    distance = 0
+    distX = 0
+    distY = 0
+    startX = touch.changedTouches[0].pageX
+    startY = touch.changedTouches[0].pageY
+  })
+  elements.gameContainer.addEventListener("touchmove", (touch) => {
+    touch.preventDefault()
   })
 
-  document.addEventListener("touchmove", (touchEvent) => {
-    touchEvent.preventDefault()
-  })
-
-  document.addEventListener("touchend", (touchEvent) => {
-    touchEvent.preventDefault()
-    distX = touchEvent.changedTouches[0].pageX - startX
-    distY = touchEvent.changedTouches[0].pageY - startY
-    timeTaken = new Date().getTime() - startTime
-    elements.squares[0].style.backgroundColor = "blue"
-    if (timeTaken < maxTime && (Math.abs(distX) > minDistance || Math.abs(distY) > minDistance)) {
-      if (Math.abs(distX) > Math.abs(distY)) {
-        if (distX > 0) {
-          elements.squares[0].style.backgroundColor = "red"
+  elements.gameContainer.addEventListener("touchend", (touch) => {
+    touch.preventDefault()
+    distX = startX - touch.changedTouches[0].pageX
+    distY = startY - touch.changedTouches[0].pageY
+    distance = Math.sqrt(distX ** 2 + distY ** 2)
+    if (distance > minDistance) {
+      if (Math.abs(distX) > Math.abs(distY) * 2) {
+        // left or right
+        if (distX < 0) {
           game.move("right")
         }
         else {
-          elements.squares[0].style.backgroundColor = "green"
           game.move("left")
         }
       }
-      else {
-        if (distY > 0) {
+      else if (Math.abs(distY) > Math.abs(distX) * 2){
+        // up or down
+        if (distY < 0) {
           game.move("down")
         }
         else {
@@ -311,7 +299,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     }
-  })*/
-
+  })
 })
 
