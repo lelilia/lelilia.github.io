@@ -41,6 +41,14 @@ Game.prototype.getSquare = function getSquare(row, col) {
   return this.squares[row * NUMBER_OF_SQUARES + col]
 }
 
+Game.prototype.maxSquare = function maxSquare(){
+  const squares = []
+  for (const square of this.squares) {
+    squares.push(square.val)
+  }
+  return Math.max(...squares)
+}
+
 // fill a random empty square with a random start value 
 
 Game.prototype.fillRandomEmptySquare = function fillRandomEmptySquare() {
@@ -209,7 +217,8 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   game.on("lost", () => {
-    alert("You have lost")
+    const score = game.maxSquare()
+    alert("You have lost\nYour best square has a value of: "+score)
     game.newGame()
   })
 
